@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "es2016",    
+    "removeComments": false,
+    "outDir": "javascript",
+    "noEmitOnError": false,                  
+    "alwaysStrict": true,
+    "module": "ESNext",                               
+  }  
+}
