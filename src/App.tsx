@@ -1,6 +1,7 @@
 import React from 'react';
 import './styles/App.css';
 import { Header } from './components/header/Header'
+import { TodoPanel } from './components/TodoPanel/TodoPanel'
 
 const DEFAULT_TODO_LIST = [
   {id: 1, name: 'task1', desicriptions: 'desicriptions1', checked: false},
@@ -17,6 +18,7 @@ function App() {
     <div className='app_container'>
       <div className="container">
         <Header todoCount={todos.length}/>
+        <TodoPanel/>
       </div>
     </div>
   );
