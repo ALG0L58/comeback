@@ -2,18 +2,13 @@ import React from 'react';
 import { Button } from '../Button/Button'
 
 import '../../styles/TodoPanel.css'
+import { Todo } from '../../types/Todo';
 
 const DEFAULT_TODO = {
     name: '',
     description: ''
 }
 
-type Todo = {
-    id: number;
-    name: string;
-    description: string;
-    checked: boolean;
-  };
 
 interface TodoPanelProps {
     addTodo: ({ name, description }: Omit<Todo, 'id' | 'checked'>) => void;
@@ -26,6 +21,11 @@ export const TodoPanel: React.FC<TodoPanelProps> = ({ addTodo }) => {
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
         setTodo({ ...todo, [name]: value });
+    }
+
+    const onClick = () => {
+        addTodo({name: todo.name, description: todo.description})
+        setTodo(DEFAULT_TODO)
     }
 
     return (
@@ -46,7 +46,7 @@ export const TodoPanel: React.FC<TodoPanelProps> = ({ addTodo }) => {
             </div>
             <div className='button_container'>
                 <Button 
-                onClick={() => addTodo({name: todo.name, description: todo.description})}
+                onClick={onClick}
                 >
                 ADD
                 </Button>
