@@ -8,7 +8,18 @@ const DEFAULT_TODO = {
     description: ''
 }
 
-export const TodoPanel = () => {
+type Todo = {
+    id: number;
+    name: string;
+    description: string;
+    checked: boolean;
+  };
+
+interface TodoPanelProps {
+    addTodo: ({ name, description }: Omit<Todo, 'id' | 'checked'>) => void;
+}
+
+export const TodoPanel: React.FC<TodoPanelProps> = ({ addTodo }) => {
     const [todo, setTodo] = React.useState(DEFAULT_TODO)
         console.log(todo);
         
@@ -34,7 +45,11 @@ export const TodoPanel = () => {
                 </div>
             </div>
             <div className='button_container'>
-                <Button>ADD</Button>
+                <Button 
+                onClick={() => addTodo({name: todo.name, description: todo.description})}
+                >
+                ADD
+                </Button>
             </div>
         </div>
     );
