@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from '../Button/Button'
 
 import '../../styles/TodoPanel.css'
 
@@ -33,7 +34,7 @@ export const TodoPanel = () => {
                 </div>
             </div>
             <div className='button_container'>
-                <button>ADD</button>
+                <Button>ADD</Button>
             </div>
         </div>
     );
