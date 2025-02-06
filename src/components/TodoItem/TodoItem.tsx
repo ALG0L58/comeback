@@ -2,21 +2,20 @@ import React from 'react';
 import { Button } from '../Button/Button'
 
 import '../../styles/TodoItem.css'
-import '../../styles/Button.css'
 import { Todo } from '../../types/Todo';
 
 interface TodoItemProps {
   todo: Todo;
-//   deleteTodo: (id: Todo['id']) => void;
-//   checkTodo: (id: Todo['id']) => void;
-//   selectTodoIdForEdit: (id: Todo['id']) => void;
+  deleteTodo: (id: Todo['id']) => void;
+  checkTodo: (id: Todo['id']) => void;
+  selectTodoIdForEdit: (id: Todo['id']) => void;
 }
 
 export const TodoItem: React.FC<TodoItemProps> = ({
   todo,
-//   deleteTodo,
-//   checkTodo,
-//   selectTodoIdForEdit
+  deleteTodo,
+  checkTodo,
+  selectTodoIdForEdit
 }) => (
   <div className='todo_item_container' style={{ opacity: todo.checked ? 0.8 : 1 }}>
     <div>
@@ -26,7 +25,7 @@ export const TodoItem: React.FC<TodoItemProps> = ({
           opacity: todo.checked ? 0.5 : 1,
           textDecoration: todo.checked ? 'line-through' : 'none'
         }}
-        // onClick={() => checkTodo(todo.id)}
+        onClick={() => checkTodo(todo.id)}
         className='todo_item_title'
       >
         {todo.name}
@@ -34,19 +33,19 @@ export const TodoItem: React.FC<TodoItemProps> = ({
       <div 
         aria-hidden 
         
-        // onClick={() => checkTodo(todo.id)} 
+        onClick={() => checkTodo(todo.id)} 
         className='todo_item_description'>
         {todo.description}
       </div>
     </div>
     <div className='todo_item_button_container'>
       <Button 
-        // onClick={() => selectTodoIdForEdit(todo.id)}
+        onClick={() => selectTodoIdForEdit(todo.id)}
         >
         EDIT
       </Button>
       <Button 
-        // onClick={() => deleteTodo(todo.id)}
+        onClick={() => deleteTodo(todo.id)}
       >
         DELETE
       </Button>

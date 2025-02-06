@@ -10,13 +10,22 @@ const DEFAULT_TODO = {
 }
 
 
-interface TodoPanelProps {
+interface AddTodoPanelProps {
+    mode: 'add';
     addTodo: ({ name, description }: Omit<Todo, 'id' | 'checked'>) => void;
+  }
+  
+interface EditTodoPanelProps {
+    mode: 'edit';
+    editTodo: Omit<Todo, 'id' | 'checked'>;
+    changeTodo: ({ name, description }: Omit<Todo, 'id' | 'checked'>) => void;
 }
 
-export const TodoPanel: React.FC<TodoPanelProps> = ({ addTodo }) => {
-    const [todo, setTodo] = React.useState(DEFAULT_TODO)
-        console.log(todo);
+type TodoPanelProps = AddTodoPanelProps | EditTodoPanelProps;
+
+export const TodoPanel: React.FC<TodoPanelProps> = (props) => {
+    const isEdit = props.mode === 'edit';
+    const [todo, setTodo] = React.useState(isEdit ? props.editTodo : DEFAULT_TODO);
         
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
@@ -24,7 +33,10 @@ export const TodoPanel: React.FC<TodoPanelProps> = ({ addTodo }) => {
     }
 
     const onClick = () => {
-        addTodo({name: todo.name, description: todo.description})
+        if (isEdit) {
+            return props.changeTodo(todo);
+          }
+          props.addTodo(todo);
         setTodo(DEFAULT_TODO)
     }
 
@@ -45,11 +57,16 @@ export const TodoPanel: React.FC<TodoPanelProps> = ({ addTodo }) => {
                 </div>
             </div>
             <div className='button_container'>
-                <Button 
-                onClick={onClick}
-                >
-                ADD
-                </Button>
+                {!isEdit && (
+                    <Button onClick={onClick}>
+                        ADD
+                    </Button>
+                )}
+                {isEdit && (
+                    <Button onClick={onClick}>
+                        EDIT
+                    </Button>
+                )}
             </div>
         </div>
     );
